@@ -1,0 +1,17 @@
+<div class="navbar__header">
+    <i class="fa fa-file-text-o" aria-hidden="true"></i>Todo-Lists
+</div>
+<div class="navbar__todo-list__container">
+    <div class="navbar__todo-list__item" *ngFor="let todoList of todoLists" (click)="loadTarefas(todoList)">
+        <span class="arrow-left"></span>{{todoList.nome}}
+    </div>
+    <div *ngIf="!todoListFormGroup" class="navbar__todo-list__item-new" (click)="addNewTodoList()" routerLinkActive="active">
+        <i class="fa fa-plus" aria-hidden="true"></i>Adicionar
+    </div>
+    <form *ngIf="todoListFormGroup" class="navbar__todo-list__form-group" [formGroup]="todoListFormGroup" (submit)="addNewTodoList(todoListFormGroup.value)" autocomplete="off">
+        <input type="text" class="navbar__todo-list__item-new__input" formControlName="nome" placeholder="Digite um nome..." (focusout)="handleNewTodoList()" appAutoFocus />
+        <div class="invalid-feedback" *ngFor="let error of todoListFormGroup.get('nome').errors">
+            {{error}}
+        </div>
+    </form>
+</div>
